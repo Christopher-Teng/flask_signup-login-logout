@@ -1,0 +1,71 @@
+{% extends "layout.html" %} {% block header %}
+<header class="container-fluid header">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand" href="javascript:;">Flask Learn</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse justify-content-between"
+      id="navbarNav"
+    >
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link {{'active' if active=='index'}}" href="/"
+            >Home <i class="bi bi-house-fill"></i
+          ></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{'active' if active=='customer'}}" href="/user"
+            >Customers <i class="bi bi-person-fill"></i
+          ></a>
+        </li>
+      </ul>
+      <div class="text-end">
+        {% if current_user and current_user.nickname %}
+        <a href="/customer" class="btn btn-primary"
+          >{{ current_user.nickname }} <i class="bi bi-person-square"></i
+        ></a>
+        <a href="/" class="btn btn-outline-primary"
+          >Logout <i class="bi bi-box-arrow-left"></i
+        ></a>
+        {% else %}
+        <a
+          href="/user/login"
+          class="btn {{ 'btn-primary' if active=='login' else 'btn-outline-primary' }}"
+          >Login <i class="bi bi-box-arrow-in-right"></i
+        ></a>
+        <a
+          href="/user/register"
+          class="btn {{ 'btn-outline-primary' if active=='login' else 'btn-primary' }}"
+          >Sign up <i class="bio bi-people-fill"></i
+        ></a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+</header>
+{% endblock %} {% block aside %} {% endblock aside %} {% block main %} {%
+endblock %} {% block footer %}
+<footer
+  class="
+    footer
+    w-100
+    py-1
+    text-center text-secondary
+    fs-6
+    position-absolute
+    bottom-0
+  "
+>
+  &copy;Christopher-Teng
+</footer>
+{% endblock %}
