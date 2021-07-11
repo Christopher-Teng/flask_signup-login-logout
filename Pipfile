@@ -10,6 +10,7 @@ cryptograpy = "*"
 flask-wtf = "*"
 email-validator = "*"
 flask-login = "*"
+pymysql = "*"
 
 [dev-packages]
 autopep8 = "*"

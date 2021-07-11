@@ -53,19 +53,28 @@
     </div>
   </nav>
 </header>
-{% endblock %} {% block aside %} {% endblock aside %} {% block main %} {%
-endblock %} {% block footer %}
-<footer
-  class="
-    footer
-    w-100
-    py-1
-    text-center text-secondary
-    fs-6
-    position-absolute
-    bottom-0
-  "
->
+{% endblock %} {% block main %} {% endblock %}{% block aside %}
+<aside class="aside container">
+  {% with messages=get_flashed_messages() %} {% for message in messages %}
+  <div class="overflow-auto h-100">
+    {% if message %}
+    <p class="alert alert-warning fs-6 text-break" role="alert">{{message}}</p>
+    {% endif %}
+  </div>
+  {% endfor %} {% endwith %} {% if form and form.errors %}
+  <div>
+    {% for k,v in form.errors.items() %}
+    <p class="alert alert-warning fs-6 text-break" role="alert">
+      {{k}} : {% for msg in v %} {% if msg %}
+      <span>{{msg}}</span>
+      {% endif %} {% endfor %}
+    </p>
+    {% endfor %}
+  </div>
+  {% endif %}
+</aside>
+{% endblock %} {% block footer %}
+<footer class="footer w-100 py-3 text-center text-secondary fs-6">
   &copy;Christopher-Teng
 </footer>
 {% endblock %}
