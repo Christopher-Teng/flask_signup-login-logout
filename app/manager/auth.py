@@ -1,4 +1,4 @@
-from flask import flash, redirect, render_template, url_for
+from flask import flash, redirect, render_template, request, url_for
 
 from ..forms.auth import UserForm
 from ..models.base import db
@@ -33,7 +33,15 @@ def register():
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():
-    return "<h1>Login page</h1>"
+    if request.method == "POST":
+        email_or_phone_number = request.form.get("email_or_phone_number")
+        password = request.form.get("password")
+        user = _login(email_or_phone_number)
+        if user and user.check_password(password):
+            flash(u"登录成功！")
+            return redirect(url_for("web.index"))
+        flash(u"用户不存在或密码错误！")
+    return render_template("login.html")
 
 
 def _check_registed(email=None, phone_number=None):
@@ -44,3 +52,10 @@ def _check_registed(email=None, phone_number=None):
         if User.query.filter_by(phone_number=phone_number).first():
             return True
     return False
+
+
+def _login(email_or_phone_number):
+    user = User.query.filter_by(
+        email=email_or_phone_number).first() or User.query.filter_by(
+        phone_number=email_or_phone_number).first()
+    return user
