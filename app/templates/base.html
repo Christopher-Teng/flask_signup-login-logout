@@ -24,7 +24,9 @@
           ></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{'active' if active=='customer'}}" href="/user"
+          <a
+            class="nav-link {{'active' if active=='customer'}}"
+            href="/customer"
             >Customers <i class="bi bi-person-fill"></i
           ></a>
         </li>
@@ -34,7 +36,7 @@
         <a href="/customer" class="btn btn-primary"
           >{{ current_user.nickname }} <i class="bi bi-person-square"></i
         ></a>
-        <a href="/" class="btn btn-outline-primary"
+        <a href="/user/logout" class="btn btn-outline-primary"
           >Logout <i class="bi bi-box-arrow-left"></i
         ></a>
         {% else %}
@@ -56,20 +58,16 @@
 {% endblock %} {% block main %} {% endblock %}{% block aside %}
 <aside class="aside container">
   {% with messages=get_flashed_messages() %} {% for message in messages %}
-  <div class="overflow-auto h-100">
+  <div>
     {% if message %}
     <p class="alert alert-warning fs-6 text-break" role="alert">{{message}}</p>
     {% endif %}
   </div>
   {% endfor %} {% endwith %} {% if form and form.errors %}
   <div>
-    {% for k,v in form.errors.items() %}
-    <p class="alert alert-warning fs-6 text-break" role="alert">
-      {{k}} : {% for msg in v %} {% if msg %}
-      <span>{{msg}}</span>
-      {% endif %} {% endfor %}
-    </p>
-    {% endfor %}
+    {% for _,v in form.errors.items() %} {% for msg in v %} {% if msg %}
+    <p class="alert alert-warning fs-6 text-break" role="alert">{{msg}}</p>
+    {% endif %} {% endfor %} {% endfor %}
   </div>
   {% endif %}
 </aside>
